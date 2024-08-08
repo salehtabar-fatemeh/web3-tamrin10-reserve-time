@@ -1,24 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reserve time </title>
-    <style>
-        button{
-            width: 80px ;
-        }
-    </style>
+    <title>reserve time</title>
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
-
-
-</head>
-<body>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
     <p class="m-2">لطفا زمان مورد نظر برای مراجعه به مطب را انتخاب نمایید:</p>
-    <button class="text-bg-light ms-1 rounded rounded-pill "><input class="" type="radio" name="time"></button>
-    <script src="assets/js/bootstrap.bundle.min.js">
 
+    <script>
+      generateButton();
+
+      function generateButton() {
+        let container = document.createElement("div");  
+        container.setAttribute("class","row");
+        document.body.append(container);
+        
+        for (let i = 480; i <= 1245; i += 15) {
+          let div = document.createElement("div");
+          div.setAttribute(
+            "class",
+            " col-1 text-bg-light mx-3 my-2 rounded rounded-pill border border-dark"
+          );
+          div.style.height = "30px";
+        
+          let input = document.createElement("input");
+          input.setAttribute("id", i);
+          input.setAttribute("type", "radio");
+          input.setAttribute("name", "time");
+          input.setAttribute("class", "mx-1");
+          div.append(input);
+
+          var label = document.createElement("label");
+          label.setAttribute("for", i);
+          label.innerHTML = calculateTime(i);
+          div.append(label);
+          container.append(div);
+        }
+      }
+
+      function calculateTime(timeMinute) {
+        let min = timeMinute % 60;
+        let hour = (timeMinute - min) / 60;
+
+        if (min == 0) {
+          min = "00";
+        }
+        return hour + ":" + min;
+      }
     </script>
-    
-</body>
+  </body>
 </html>
